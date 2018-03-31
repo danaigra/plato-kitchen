@@ -1,4 +1,4 @@
-export class Order{
+export class Order {
     name: string;
     orders : any[];
     meals: Meal[];

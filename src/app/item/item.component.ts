@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "angularfire2/firestore";
-import { Observable } from "rxjs/Observable";
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 import { Order, Meal, Dish } from '../order';
 import { AngularFireModule } from 'angularfire2';
+import { DocumentChangeAction } from 'angularfire2/firestore/interfaces';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-item',
@@ -10,94 +12,64 @@ import { AngularFireModule } from 'angularfire2';
   styleUrls: ['./item.component.css']
 })
 
-
-
-
-
 export class ItemComponent implements OnInit {
-    // public names= ['mixed Burger 300 gr','coca cola','Burger 300 gr'];
-    // public statuss= ['new','new','done'];
-    
-    // myname = this.names[0];
-    // mystatus = this.statuss[0];
 
     orderDoc: AngularFirestoreDocument<Order>;
     order:  Observable<Order>;
-    o:any;
     restsCollection: AngularFirestoreCollection<any>;
     orderCollection: AngularFirestoreCollection<any>;
-    orderDocItem: Observable<{}>;
-    orders:Observable<any[]>;
-    rests: Observable<any[]>;
-    snapshot:any;
 
-    test:any;
-  //meal = {dish1:{name:"mixed Burger 300 gr", status:"new"},dish2:{name:"coca cola", status:"new"},dish3:{name:"chicken Burger 300 gr", status:"new"}};
+    orderDocItem$: Subscription;
+
+
+    test: any;
 
   constructor(private afs: AngularFirestore) {
+  }
 
-    // // this.restsCollection = this.afs.collection("Rests");
-    // // this.rests = this.restsCollection.valueChanges();
-    // // this.orderCollection = this.afs.collection("/Rests/RestID/Orders");
-    // this.orderDoc = this.afs.doc('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX');
-    // this.order = this.orderDoc.valueChanges();
-    // this.o = new Order('a',[],[]);
-    // this.o.name = "test";
-   
-    // this.order.subscribe(a=>{
-    //   //console.log(a.meals);
-    //   console.log(Object.keys(a.meals).length);
-      
+  // tslint:disable-next-line:one-line
+  updateStatus(dish){
+    console.log(dish.id);
+    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+      .set({
+        status: 'in progress',
+        name: dish.name,
+        description: dish.description
+      });
+  }
 
-    //   for(let key of Object.keys(a.meals)){
-    //     let meal = new Meal([]);
-    //     let t = a.meals[key].Dishes;
-    //     console.log(t);
-    //     for(let key2 of Object.keys(t)){
-    //       let dish = new Dish('',[]);
-    //       let tt = t[key2];
-    //       dish.name = key2;
-    //       dish.status = tt.status;
-    //       console.log(dish);
-    //       meal.dishes.push(dish);
-    //       console.log(meal);
-          
-    //       //meal.dishes.push(new Dish(key2, tt.status));
-    //     }
-    //      console.log(meal);
-    //     this.o.meals.push(meal);
-        
-    //   }
-    //    console.log(this.o);
-      // for (var i = 0; i < Object.keys(a.meals).length; i++) {
-      //   var element =a.meals[i];
-      //   console.log(element);
-        
-      //   //this.o.meals.push(element);
-      //   // for (var j = 0; j < element.dishes.length; j++) {
-      //   //   var element = element[j];
-          
-      //   // }
-      // }
-      // for(let i=0; i<a.orders.length; i++){
-      //   const element = a.orders[i];
-      //   console.log(element.a);
-      //   this.o.orders.push(element);
-      // }
-    //})
- 
-    
-   }
+  // tslint:disable-next-line:one-line
+  createdDish(dish){
+    console.log(dish.id);
+    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc('dish22')
+    .set({
+      status: 'new',
+      name: 'dish.name',
+      description: 'dish.description'
+    }).then(function(){
+      console.log('success');
+    }).catch(function(err){
+        console.log(err);
+    });
+  }
+
+  // tslint:disable-next-line:one-line
+  deleteDish(dishId){
+    console.log(dishId);
+    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dishId).delete();
+  }
 
   ngOnInit() {
-    this.orderDocItem = this.afs.collection("/Rests/RestID/Orders").doc("uHN9bSdMnEMpFqVpzdNX").valueChanges();
-     this.orderDocItem
-     .subscribe(data => {
-       this.test =  data;
-       console.log(this.test);
+    this.orderDocItem$ = this.afs.collection('/Rests/RestID/Orders')
+    .doc('uHN9bSdMnEMpFqVpzdNX')
+    .collection('meal1').snapshotChanges()
+    .map(data => {
+      return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data() }));
     })
-    //console.log(" nana--> ",this.orderDocItem); 
+   .subscribe(data => {
+      this.test = data;
+      console.log(data);
+   });
   }
-    
 }
 
