@@ -7,16 +7,20 @@ import { ItemComponent } from './item/item.component';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from 'angularfire2';
+import { RoutingModule } from './app.router.module';
+import { ChekerComponent } from './cheker/cheker.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ItemComponent
+    ItemComponent,
+    ChekerComponent
   ],
   imports: [
     BrowserModule,
+    RoutingModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireModule

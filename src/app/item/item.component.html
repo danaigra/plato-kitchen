@@ -1,12 +1,24 @@
 <section>
-  <section class="meal"*ngFor="let dish of test">
+  <section class="meal" *ngFor="let dish of test">
     <div class="photo"></div>
     <div class="itemName">{{dish.name}}</div>
     <div class="itemName">{{dish.description}}</div>
     <section class="boxes">
-      <div class="greenBox"></div>
-      <div class="orangeBox" title="change status" (click)="updateStatus(dish)"></div>
+      <div class="greenBox" (click)="updateStatusDone(dish)"></div>
+      <div class="orangeBox" title="change status" (click)="updateStatusInP(dish)"></div>
       <div class="redBox" title="delete" (click)="deleteDish(dish.id)"></div>
     </section>
   </section>
+
+
+  <!-- <section class="meal" *ngFor="let dish of test">
+      <div class="photo"></div>
+      <div class="itemName">{{dish.name}}</div>
+      <div class="itemName">{{dish.description}}</div>
+      <section class="boxes">
+        <div class="greenBox" (click)="updateStatusDone(dish)"></div>
+        <div class="orangeBox" title="change status" (click)="updateStatusInP(dish)"></div>
+        <div class="redBox" title="delete" (click)="deleteDish(dish.id)"></div>
+      </section>
+  </section> -->
 </section>
