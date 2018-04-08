@@ -17,27 +17,26 @@
 .greenBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
 	float: left;
 	position: relative;
 	top:20px;
 	right:30px;
 	background:url(/assets/images/bellbutton.png) no-repeat;
 }
+
 .orangeBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
 	float: left;
 	position: relative;
 	top:20px;
 	right:20px;
 	background:url(/assets/images/cookingbutton.png) no-repeat;
 }
+
 .redBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
 	float: left;
 	position: relative;
 	top:20px;

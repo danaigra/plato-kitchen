@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { HotplateComponent } from './Hotplate/Hotplate.component';
 import { ChekerComponent } from './cheker/cheker.component';
 import { ColdplateComponent } from './Coldplate/Coldplate.component';
-import { HomeComponent } from "app/Home/Home.component";
-import { DrinksComponent } from "app/Drinks/Drinks.component";
-import { StoveComponent } from "app/Stove/Stove.component";
+import { HomeComponent } from 'app/Home/Home.component';
+import { DrinksComponent } from 'app/Drinks/Drinks.component';
+import { StoveComponent } from 'app/Stove/Stove.component';
+
 
 export const routes: Routes = [
   {

@@ -36,22 +36,25 @@ updateStatusInP(dish) {
     .set({
       status: dishStatus.inProgress,
       name: dish.name,
-      description: dish.description
+      description: dish.description,
+      category: dish.category
     });
 }
 
 updateStatusDone(dish) {
   console.log(dish);
-  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX').doc(dish.id)
     .set({
       status: dishStatus.done,
       name: dish.name,
-      description: dish.description
+      description: dish.description,
+      category: dish.category
     });
 
     // this.router.navigate(['cheker']);
 
 }
+
 
 createdDish(dish) {
   console.log(dish.id);

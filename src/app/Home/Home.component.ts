@@ -36,10 +36,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['cheker']);
 
   }
-  goToOven() {
-      this.router.navigate(['oven']);
-
-  }
   goToStove() {
       this.router.navigate(['stove']);
 
@@ -79,6 +75,5 @@ export class HomeComponent implements OnInit {
 
 
 
-   
 }
 
