@@ -15,62 +15,34 @@
 	left:10px;
 }
 .greenBox{
-<<<<<<< HEAD
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
-=======
-	background: #32CD32;
-	height: 100px;
-	width: 100px;
-	border: 1px solid black;
->>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
 	float: left;
 	position: relative;
 	top:20px;
 	right:30px;
-<<<<<<< HEAD
 	background:url(/assets/images/bellbutton.png) no-repeat;
 }
+
 .orangeBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
-=======
-}
-.orangeBox{
-	background: #FF8C00;
-	height: 100px;
-	width: 100px;
-	border: 1px solid black;
->>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
 	float: left;
 	position: relative;
 	top:20px;
 	right:20px;
-<<<<<<< HEAD
 	background:url(/assets/images/cookingbutton.png) no-repeat;
 }
+
 .redBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
-=======
-}
-.redBox{
-	background:red;
-	height: 100px;
-	width: 100px;
-	border: 1px solid black;
->>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
 	float: left;
 	position: relative;
 	top:20px;
 	right:10px;
-<<<<<<< HEAD
 	background:url(/assets/images/trashbutton.png) no-repeat;
-=======
->>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
+
 }
 .clear{
     clear:both;
