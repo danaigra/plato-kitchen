@@ -30,31 +30,48 @@ export class ChekerComponent implements OnInit {
 constructor(private afs: AngularFirestore, private router: Router) {
 }
 
+<<<<<<< HEAD
 return(dish) {
+=======
+updateStatusInP(dish) {
+>>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
   console.log(dish);
   this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
     .set({
       status: dishStatus.inProgress,
       name: dish.name,
+<<<<<<< HEAD
       description: dish.description,
       category: dish.category
+=======
+      description: dish.description
+>>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
     });
 }
 
 updateStatusDone(dish) {
   console.log(dish);
+<<<<<<< HEAD
   this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX').doc(dish.id)
     .set({
       status: dishStatus.done,
       name: dish.name,
       description: dish.description,
       category: dish.category
+=======
+  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+    .set({
+      status: dishStatus.done,
+      name: dish.name,
+      description: dish.description
+>>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
     });
 
     // this.router.navigate(['cheker']);
 
 }
 
+<<<<<<< HEAD
 // createdDish(dish) {
 //   console.log(dish.id);
 //   this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc('dish22')
@@ -68,6 +85,21 @@ updateStatusDone(dish) {
 //       console.log(err);
 //   });
 // }
+=======
+createdDish(dish) {
+  console.log(dish.id);
+  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc('dish22')
+  .set({
+    status: 'new',
+    name: 'dish.name',
+    description: 'dish.description'
+  }).then(function(){
+    console.log('success');
+  }).catch(function(err){
+      console.log(err);
+  });
+}
+>>>>>>> 132275125b1a9d51425007fa70dfeb5edbbdca3c
 
 deleteDish(dishId) {
   console.log(dishId);
