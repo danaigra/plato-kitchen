@@ -32,7 +32,7 @@ constructor(private afs: AngularFirestore, private router: Router) {
 
 updateStatusInP(dish) {
   console.log(dish);
-  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+  this.afs.collection('/Rests/restId/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
     .set({
       status: dishStatus.inProgress,
       name: dish.name,
@@ -73,9 +73,9 @@ deleteDish(dishId) {
 }
 
 ngOnInit() {
-  this.orderDocItem$ = this.afs.collection('/Rests/RestID/Orders')
-  .doc('uHN9bSdMnEMpFqVpzdNX')
-  .collection('meal1', ref => ref.where('status', '==', 2)).snapshotChanges()
+  this.orderDocItem$ = this.afs.collection('/Rests/restId/Orders/order123/meals')
+  .doc('234')
+  .collection('dishes', ref => ref.where('status', '==', 2)).snapshotChanges()
   .map(data => {
     return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data() }));
   })

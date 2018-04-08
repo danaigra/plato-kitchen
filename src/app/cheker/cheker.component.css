@@ -15,34 +15,22 @@
 	left:10px;
 }
 .greenBox{
-	background: #32CD32;
 	height: 100px;
 	width: 100px;
-	border: 1px solid black;
 	float: left;
 	position: relative;
 	top:20px;
 	right:30px;
+	background:url(/assets/images/okbutton.png) no-repeat;
 }
 .orangeBox{
-	background: #FF8C00;
 	height: 100px;
 	width: 100px;
-	border: 1px solid black;
 	float: left;
 	position: relative;
 	top:20px;
 	right:20px;
-}
-.redBox{
-	background:red;
-	height: 100px;
-	width: 100px;
-	border: 1px solid black;
-	float: left;
-	position: relative;
-	top:20px;
-	right:10px;
+	background:url(/assets/images/return.png) no-repeat;
 }
 .clear{
     clear:both;
