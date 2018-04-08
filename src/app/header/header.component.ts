@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    console.log('nana--> ', this.router.url === '/cold'); // array of states
+    console.log(activatedRoute.snapshot.url)
+
+   }
 
   ngOnInit() {
   }
