@@ -4,6 +4,7 @@ import { Order } from '../order';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 const enum dishStatus {
   new,
@@ -20,19 +21,22 @@ const enum dishStatus {
 
 
 export class ChekerComponent implements OnInit {
+  
   orderDoc: AngularFirestoreDocument<Order>;
   order:  Observable<Order>;
   restsCollection: AngularFirestoreCollection<any>;
   orderCollection: AngularFirestoreCollection<any>;
   orderDocItem$: Subscription;
   test: any;
+  someTest: any[] = [];
+  someDishes: any[] = [];
 
 constructor(private afs: AngularFirestore, private router: Router) {
 }
 
 updateStatusInP(dish) {
   console.log(dish);
-  this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+  this.afs.collection('/Rests/restId/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
     .set({
       status: dishStatus.inProgress,
       name: dish.name,
@@ -42,7 +46,7 @@ updateStatusInP(dish) {
 }
 
 updateStatusDone(dish) {
-  console.log(dish);
+ 
   this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX').doc(dish.id)
     .set({
       status: dishStatus.done,
@@ -52,7 +56,6 @@ updateStatusDone(dish) {
     });
 
     // this.router.navigate(['cheker']);
-
 }
 
 
@@ -76,16 +79,36 @@ deleteDish(dishId) {
 }
 
 ngOnInit() {
-  this.orderDocItem$ = this.afs.collection('/Rests/RestID/Orders')
-  .doc('uHN9bSdMnEMpFqVpzdNX')
-  .collection('meal1', ref => ref.where('status', '==', 2)).snapshotChanges()
-  .map(data => {
-    return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data() }));
-  })
- .subscribe(data => {
-    this.test = data;
-    console.log(data);
- });
-}
-}
+    this.afs.collection('/Rests/restId/Orders/order123/meals').snapshotChanges()
+    .map(data => {
+      return data.map(subData => {
+        const someData = subData.payload.doc.data();
+        const mealId = subData.payload.doc.id;
+        this.afs.collection('/Rests/restId/Orders/order123/meals/'+mealId+"/dishes").snapshotChanges()
+        .map(mapObj => {
+          return mapObj.map(dataTest => ({mealId: mealId, id: dataTest.payload.doc.id, ...dataTest.payload.doc.data() }));
+        })
+        .subscribe(subsubData => {
+          this.someTest.push(subsubData);
+        })
+      });
+    })
+    .subscribe(fin => {
+    });
+  }
 
+  getDishes(mealId){
+    $("#"+mealId).toggle("slow")
+    this.afs.collection('/Rests/restId/Orders/order123/meals/'+mealId+"/dishes").snapshotChanges()
+    .map(data => {
+      return data.map(newData => ({id: newData.payload.doc.id, ...newData.payload.doc.data()}));
+    }).subscribe(dishObj => {
+      this.someDishes = dishObj;
+      console.log("dishObj ", dishObj);
+    });
+    //Rests/restId/Orders/order123/meals/"+mealId+"/dishes
+  }
+
+
+
+}
