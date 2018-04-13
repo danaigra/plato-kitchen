@@ -4,44 +4,54 @@
 	height: 150px;
 	width: 100%;
 }
+
+.dishItem{
+	float:left;
+	width:330px;
+}
+
+.dishButtons{
+	float:right;
+	width:730px;
+}
+
+.clearAfter:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.itemName{
+	float:left;
+	line-height: 120px;
+	margin:0 auto;
+	width: 200px;
+}
 .photo{
-	background: #A9A9A9;
+	background:url("https://firebasestorage.googleapis.com/v0/b/plato-7fb01.appspot.com/o/Kibuz-222%2FmealsPics%2FkornBifBurger.png?alt=media&token=1ead5eaa-e7b1-47f3-9ae0-0e56308c92fb"); 
 	height: 100px;
 	width: 100px;
 	border: 1px solid black;
-	float: left;
-	position: relative;
-	top:20px;
-	left:10px;
+	float:left;
+	margin:10px;
 }
 .greenBox{
 	height: 100px;
 	width: 100px;
-	/* border: 1px solid black; */
-	float: left;
-	position: relative;
-	top:20px;
-	right:30px;
+	float:right;
 	background:url(/assets/images/bellbutton.png) no-repeat;
 }
 
 .orangeBox{
 	height: 100px;
 	width: 100px;
-	float: left;
-	position: relative;
-	top:20px;
-	right:20px;
+	float:right;
 	background:url(/assets/images/cookingbutton.png) no-repeat;
 }
 
 .redBox{
 	height: 100px;
 	width: 100px;
-	float: left;
-	position: relative;
-	top:20px;
-	right:10px;
+	float:right;
 	background:url(/assets/images/trashbutton.png) no-repeat;
 }
 .clear{
@@ -49,10 +59,4 @@
 }
 .boxes{
 	float:right;
-}
-.itemName{
-    float:left;
-    position:relative;
-    top:65px;
-    left:30px;
 }

@@ -23,10 +23,15 @@ const enum dishStatus {
 export class ColdplateComponent implements OnInit {
     orderDoc: AngularFirestoreDocument<Order>;
     order:  Observable<Order>;
+    orderTest$:  Observable<void[]>;
     restsCollection: AngularFirestoreCollection<any>;
     orderCollection: AngularFirestoreCollection<any>;
     orderDocItem$: Subscription;
     test: any;
+    someTest: any[] = [];
+
+    idArray: any;
+
     @Output() titleChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private afs: AngularFirestore, private router: Router) {
@@ -34,7 +39,7 @@ export class ColdplateComponent implements OnInit {
 
   updateStatusInP(dish) {
     console.log(dish);
-    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+    this.afs.collection('/Rests/restId/Orders/order123/meals/234/dishes').doc(dish.id)
       .set({
         status: dishStatus.inProgress,
         category: dish.category,
@@ -44,22 +49,30 @@ export class ColdplateComponent implements OnInit {
   }
 
   updateStatusDone(dish) {
-    console.log(dish);
-    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dish.id)
+    console.log("dish--> ", dish[0].id);
+    this.afs.collection('/Rests/restId/Orders/order123/meals/234/dishes').doc(dish[0].id)
       .set({
         status: dishStatus.done,
-        category: dish.category,
-        name: dish.name,
-        description: dish.description
+        category: dish[0].mapObj[0].category,
+        name: dish[0].mapObj[0].name,
+        description: dish[0].mapObj[0].description
       });
-
-      // this.router.navigate(['cheker']);
-
+     //this.updateWarehouseStock(dish[0]);
   }
+
+  // updateWarehouseStock(dish){
+  //   this.afs.collection('/Restaurants/Mozes-333/WarehouseStock/bun').doc(dish.id)
+  //     .set({
+  //       status: dishStatus.done,
+  //       category: dish.category,
+  //       name: dish.name,
+  //       description: dish.description
+  //     });
+  // }
 
   createdDish(dish) {
     console.log(dish.id);
-    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc('dish22')
+    this.afs.collection('/Rests/restId/Orders/order123/meals/234/dishes').doc('dish22')
     .set({
       status: 'new',
       name: 'dish.name',
@@ -73,20 +86,44 @@ export class ColdplateComponent implements OnInit {
 
   deleteDish(dishId) {
     console.log(dishId);
-    this.afs.collection('/Rests/RestID/Orders/uHN9bSdMnEMpFqVpzdNX/meal1').doc(dishId).delete();
+    this.afs.collection('/Rests/restId/Orders/order123/meals/234/dishes').doc(dishId).delete();
   }
 
   ngOnInit() {
-    this.orderDocItem$ = this.afs.collection('/Rests/RestID/Orders')
-    .doc('uHN9bSdMnEMpFqVpzdNX')
-    .collection('meal1', ref => ref.where('status', '<', 2).where('category', '==', 'Coldplate')).snapshotChanges()
+     this.afs.collection('/Rests/restId/Orders/order123/meals').snapshotChanges()
     .map(data => {
-      return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data() }));
+      return data.map(subData => {
+        const someData = subData.payload.doc.data();
+        const mealId = subData.payload.doc.id;
+        this.afs.collection('/Rests/restId/Orders/order123/meals/'+mealId+"/dishes", ref => ref.where('status', '<', 2).where('category', '==', 'Coldplate')).valueChanges()
+        .map(mapObj => {
+          console.log(mapObj);
+          return mapObj.map(dataTest => ({ id: mealId, mapObj }));
+        })
+        .subscribe(subsubData => {
+          console.log("subsubData-> ", subsubData);
+          this.someTest.push(subsubData);
+          console.log("this.someTest-> ", this.someTest);
+        })
+      });
     })
-   .subscribe(data => {
-      this.test = data;
-      console.log('Coldplate-->' , data);
-   });
+    .subscribe(fin => {
+    });
+
+
+
+
+
+  //   this.orderDocItem$ = this.afs.collection('/Rests/restId/Orders/order123/meals')
+  //   .doc('234')
+  //   .collection('dishes', ref => ref.where('status', '<', 2).where('category', '==', 'Coldplate')).snapshotChanges()
+  //   .map(data => {
+  //     return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data() }));
+  //   })
+  //  .subscribe(data => {
+  //     this.test = data;
+  //     console.log('Coldplate-->' , data);
+  //  });
 
 
 
@@ -102,7 +139,5 @@ export class ColdplateComponent implements OnInit {
 
 
 
-
    }
 }
-

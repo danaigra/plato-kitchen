@@ -1,14 +1,15 @@
-<section>
-  <section class="meal" *ngFor="let dish of test">
+ <section>
+  <section class="meal" *ngFor="let dish of someTest">
     <div class="photo"></div>
-    <div class="itemName">{{dish.name}}</div>
-    <div class="itemName">{{dish.description}}</div>
+    <div class="itemName">{{dish[0].mapObj[0].name}}</div>
+    <div class="itemName">{{dish[0].mapObj[0].description}}</div>
     <section class="boxes">
       <div class="greenBox" (click)="updateStatusDone(dish)"></div>
       <div class="orangeBox" title="change status" (click)="updateStatusInP(dish)"></div>
       <div class="redBox" title="delete" (click)="deleteDish(dish.id)"></div>
     </section>
   </section>
+
 
 
   <!-- <section class="meal" *ngFor="let dish of test">
