@@ -97,6 +97,7 @@ ngOnInit() {
     });
   }
 
+
   getDishes(mealId){
     $("#"+mealId).toggle("slow")
     this.afs.collection('/Rests/restId/Orders/order123/meals/'+mealId+"/dishes").snapshotChanges()

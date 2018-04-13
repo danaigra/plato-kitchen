@@ -51,6 +51,7 @@ export class ColdplateComponent implements OnInit {
   updateStatusDone(dish) {
     console.log("dish--> ", dish[0].id);
     this.afs.collection('/Rests/restId/Orders/order123/meals/234/dishes').doc(dish[0].id)
+
       .set({
         status: dishStatus.done,
         category: dish[0].mapObj[0].category,
@@ -91,6 +92,7 @@ export class ColdplateComponent implements OnInit {
 
   ngOnInit() {
      this.afs.collection('/Rests/restId/Orders/order123/meals').snapshotChanges()
+
     .map(data => {
       return data.map(subData => {
         const someData = subData.payload.doc.data();

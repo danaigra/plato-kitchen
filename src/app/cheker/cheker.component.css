@@ -32,6 +32,7 @@
 	right:20px;
 	background:url(/assets/images/return.png) no-repeat;
 }
+<<<<<<< HEAD
 .greyBox{
 	height: 250px;
 	width: 100%;
@@ -39,6 +40,8 @@
 	position: relative;
 	top:150px;
 }
+=======
+>>>>>>> 7723f218cce4b73f07cd2ff346268842debd6d71
 .clear{
     clear:both;
 }

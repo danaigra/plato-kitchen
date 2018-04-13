@@ -57,31 +57,32 @@ export class HotplateComponent implements OnInit {
     this.updateWarehouseStock(item);
   }
 
+
   updateWarehouseStock(item){
-    console.log("ggwarehouseStockgg--> ", this.warehouseStock);
-    this.afs.collection('/Rests/restId/Orders/order123/meals/'+item.id+'/dishes/'+item.dish.name+'/grocerys')
+    console.log('ggwarehouseStockgg--> ', this.warehouseStock);
+    this.afs.collection('/Rests/restId/Orders/order123/meals/' + item.id + '/dishes/' + item.dish.name + '/grocerys')
       .snapshotChanges()
       .map(mapObj => {
-        console.log("mapObj-> ", mapObj);
+        console.log('mapObj-> ', mapObj);
         return mapObj.map(dataTest => {
           const dishItem = dataTest.payload.doc.data();
           this.warehouseStock.forEach((item) => {
             for (let key of Object.keys(dishItem.rawMatriel)) {
               const matirielAmount = dishItem.rawMatriel[key];
               const matirielName = key;
-              console.log("itrm=> ", item.value);
-              if(item.value.name === matirielName){
-                console.log("valueB => ", item.value.amount);
+              console.log('item=> ', item.value);
+              if (item.value.name === matirielName){
+                console.log('valueB => ', item.value.amount);
                 item.value.amount = item.value.amount - matirielAmount;
-                console.log("valueA => ", item.value.amount);
-                console.log("matirielName => ", matirielName);
+                console.log('valueA => ', item.value.amount);
+                console.log('matirielName => ', matirielName);
                 this.afs.collection('/Restaurants/Mozes-333/WarehouseStock/').doc(matirielName).set({
-                  value:{
+                  value: {
                     amount: item.value.amount,
                     name: item.value.name,
                     redLine: item.value.redLine,
                     type: item.value.type,
-                    units: item.value.units 
+                    units: item.value.units
                   }
                 }).then(function(){
                   console.log('success');
@@ -89,12 +90,12 @@ export class HotplateComponent implements OnInit {
                     console.log(err);
                 });
               }
-              //console.log(matirielAmount, matirielName);
+              // console.log(matirielAmount, matirielName);
               // this.afs.collection('/Restaurants/Mozes-333/WarehouseStock/').doc(matirielName).set({
               // });
             }
           })
-          //({ id: dataTest.payload.doc.id, ...dataTest.payload.doc.data() })
+          // ({ id: dataTest.payload.doc.id, ...dataTest.payload.doc.data() })
         });
       }).subscribe(data => {
       })
@@ -120,20 +121,22 @@ export class HotplateComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.afs.collection('/Rests/restId/Orders/order123/meals').snapshotChanges()
+
     .map(data => {
       return data.map(subData => {
         const someData = subData.payload.doc.data();
         const mealId = subData.payload.doc.id;
         this.afs.collection('/Rests/restId/Orders/order123/meals/'+mealId+"/dishes", ref => ref.where('status', '<', 2).where('category', '==', 'Hotplate')).valueChanges()
         .map(mapObj => {
-          //console.log("mapObj-> ", mapObj);
+          // console.log("mapObj-> ", mapObj);
           return mapObj.map(dataTest => ({ id: mealId, dish:dataTest }));
         })
         .subscribe(subsubData => {
-          //console.log("subsubData-> ", subsubData);
+          // console.log("subsubData-> ", subsubData);
           this.mealList.push(subsubData);
-          console.log("this.someTest-> ", this.mealList);
+          console.log('this.someTest-> ', this.mealList);
         })
       });
     })
